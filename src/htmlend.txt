@@ -1,0 +1,14 @@
+    </select>
+    <p id="demo">Default</p>
+    <button id="pullshow" class="button button1" onclick="togglePull()">Toggle Total Pull Distribution</button>
+    <div class="button-group">
+        <button id="hits" class="button button0" onclick="changeStyleSheetGroup(this.id)">hits</button>
+        <button id="holes" class="button button0" onclick="changeStyleSheetGroup(this.id)">holes</button>
+        <button id="outliers" class="button button0" onclick="changeStyleSheetGroup(this.id)">outliers</button>
+        <button id="rms_width" class="button button0" onclick="changeStyleSheetGroup(this.id)">rms_width</button>
+        <button id="rms_shift" class="button button0" onclick="changeStyleSheetGroup(this.id)">rms_shift</button>
+    </div>
+<object id="oriPoly" data="svg/vol_29_layer_4_modules.svg" type="image/svg+xml"></object>
+<img id="pulldistr" src="css/img/vol_29_layer4_modules/pull.png" width="800" height="500" style="visibility: hidden;">
+</body>
+</html>
