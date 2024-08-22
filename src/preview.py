@@ -1,5 +1,6 @@
 import ROOT
 import numpy as np
+import os
 
 import surfacedictionaries
 import actHTMLCSS
@@ -7,20 +8,20 @@ import coloriser
 import pulldistribution
 
 from surfacedictionaries.createSD import createSurfaceDict
-from actHTMLCSS.actHTMLCSS import createCSS, createHTML, createDirs
+from actHTMLCSS.actHTMLCSS import createCSS, createHTML, createDirs, createOutputDirectory
 from coloriser.counting import hitsToRGB, holesToRGB, outliersToRGB
 from coloriser.rms import rmsShiftToRGB, rmsWidthToRGB
 from pulldistribution.createPD import createPullDistributions
 
 ROOT.gErrorIgnoreLevel = ROOT.kFatal
 
-# 
-# Run in html_output directory with: python ../src/preview.py
+path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..')
 
 # Path to .root file
-PATH_to_ROOT = "../data/trackstates_fitter.root"
+PATH_to_ROOT = os.path.join(path, "data", "trackstates_fitter.root")
 
 # Load root file as dataframe
+print(">> Loading root data")
 df = ROOT.RDataFrame("trackstates", PATH_to_ROOT)
 
 # Load columns as python dict {key = column name : value}
@@ -35,8 +36,8 @@ sType = data["stateType"]
 pullLoc = data["pull_eLOC0_smt"]
 
 dirs = ["hits", "holes", "outliers", "img", "rms_shift", "rms_width"]
-
-createDirs(dirs)
+output_path = createOutputDirectory(path)
+createDirs(output_path, dirs)
 
 # Count hits
 print(">> flling hits data")
@@ -82,14 +83,14 @@ for i in range(VID.size):
 print(">> creating css-hits")
 for vl in hits:
     colors = hitsToRGB(hits[vl])
-    css_filename = "css/hits/vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules"
+    css_filename = os.path.join(output_path, "css", "hits", "vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules")
     createCSS(css_filename, colors, vl[0], vl[1])
 
 
 
 # Create css-files to display number of holes per surface
 print(">> creating css-holes")
-# Color will be relative to w.r.t. the highest number of holes on any surface 
+# Color will be relative w.r.t. the highest number of holes on any surface 
 mh = -1
 for i in holes:
     for j in holes[i]:  
@@ -98,14 +99,14 @@ for i in holes:
 
 for vl in holes:
     colors = holesToRGB(holes[vl], mh)
-    css_filename = "css/holes/vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules"
+    css_filename = os.path.join(output_path, "css", "holes", "vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules")
     createCSS(css_filename, colors, vl[0], vl[1])
 
 
 # Create css-files to display the number of outliers per surface
 print(">> creating css-outliers")
 
-# Color will be relative to w.r.t. the highest number of outliers on any surface
+# Color will be relative w.r.t. the highest number of outliers on any surface
 mo = -1
 for i in outliers:
     for j in outliers[i]:
@@ -114,7 +115,7 @@ for i in outliers:
 
 for vl in outliers:
     colors = outliersToRGB(outliers[vl], mo)
-    css_filename = "css/outliers/vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules"
+    css_filename = os.path.join(output_path, "css", "outliers", "vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules")
     createCSS(css_filename, colors, vl[0], vl[1])
 
 
@@ -122,23 +123,23 @@ for vl in outliers:
 print(">> creating css-rmsShift")
 for vl in rms:
     colors = rmsShiftToRGB(rms[vl])
-    css_filename = "css/rms_shift/vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules"
+    css_filename = os.path.join(output_path, "css", "rms_shift", "vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules")
     createCSS(css_filename, colors, vl[0], vl[1])
 
 # Create css-files displaying the change in standard deviation of the pull distribution
 print(">> creating css-rmsWidth")
 for vl in rms:
     colors = rmsWidthToRGB(rms[vl])
-    css_filename = "css/rms_width/vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules"
+    css_filename = os.path.join(output_path, "css", "rms_width", "vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules")
     createCSS(css_filename, colors, vl[0], vl[1])
 
 # Create Pull Distributions pngs for each layer and every module separately
 print(">> Creating  Pull Distributions")
-createPullDistributions(rms)
+createPullDistributions(rms, output_path)
 
 # Create the HTML-file
 print(">> Creating html")
-createHTML(VID, LID)
+createHTML(VID, LID, path)
 
 
        

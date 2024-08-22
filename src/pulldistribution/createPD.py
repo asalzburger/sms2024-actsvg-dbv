@@ -3,15 +3,11 @@ import ROOT
 import numpy as np
 
 # Create a pull distribution for a single module (single sensitive)
-def createModuleDistribution(vl, mDict):
-    # Note: set to only make PNGs for modules of volume 16 layer 4, to save time
-    # Remove this to create Pull Distributions for every volume + layer, very time consuming
-    if vl != (16,4):
-        return
+def createModuleDistribution(vl, mDict, path):
 
     for m in mDict:
-        if not os.path.isdir("css/img/vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules"):
-            os.makedirs("css/img/vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules")
+        if not os.path.isdir(os.path.join(path, "vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules")):
+            os.makedirs(os.path.join(path, "vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules"))
 
         c1 = ROOT.TCanvas( "sen" + str(m), 'Pull Distribution vol' + str(vl[0]) + " lay" + str(vl[1]) + " sen" + str(m), 200, 10, 700, 500 )
 
@@ -23,16 +19,11 @@ def createModuleDistribution(vl, mDict):
 
         c1.SetFillColor( 18 )
         c1.SetGrid()
-        c1.Print("css/img/vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules/_sen"  + str(m) + ".png")
+        c1.Print(os.path.join(path, "vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules/_sen"  + str(m) + ".png"))
 
 # Create pull distribution for a whole layer
-def createLayerDistribution(vl, mDict):
-    # Note: set to only make a PNG for volume 16 layer 4, to save time
-    # Remove this to create Pull Distributions for every volume + layer, very time consuming
-    if vl != (16, 4):
-        return
-
-
+def createLayerDistribution(vl, mDict, path):
+    
     total = np.array([])
     for m in mDict:
         total = np.append(total, mDict[m])
@@ -50,10 +41,11 @@ def createLayerDistribution(vl, mDict):
 
         c2.SetFillColor( 18 )
         c2.SetGrid()
-        c2.Print("css/img/vol_" + str(vl[0]) + "_layer_" + str(vl[1]) + "_modules/pull.png")
+        c2.Print(os.path.join(path, "vol_" + str(vl[0]) + "_layer_" + str(vl[1]) + "_modules", "pull.png"))
 
 # Create pull distributions
-def createPullDistributions(rms):
+def createPullDistributions(rms, path):
+    img_path = os.path.join(path, "css", "img")
     for vl in rms:
-        createModuleDistribution(vl, rms[vl])
-        createLayerDistribution(vl, rms[vl])
+        createModuleDistribution(vl, rms[vl], img_path)
+        createLayerDistribution(vl, rms[vl], img_path)

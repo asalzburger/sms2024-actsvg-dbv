@@ -1,0 +1,75 @@
+var group = "hits";
+
+function changeStyleSheet(id) {
+    document.getElementById("demo").innerHTML = "getting oriPoly";
+
+    var svgElem = document.getElementById("oriPoly");
+
+    document.getElementById("demo").innerHTML = "finding svg and css, wait time > 5s might mean svg file does not exist";
+
+    svgElem.addEventListener("load", function () {
+
+        var svgDoc = svgElem.contentDocument;
+        
+        document.getElementById("demo").innerHTML = "creating linkElem";
+
+        var linkElem = svgDoc.createElementNS("http://www.w3.org/1999/xhtml", "link");
+
+        document.getElementById("demo").innerHTML = "Setting linkElem attributes";
+
+        linkElem.setAttribute("href", "../../../css/" + group + "/" + id + ".css");
+        linkElem.setAttribute("type", "text/css");
+        linkElem.setAttribute("rel", "stylesheet");
+
+        document.getElementById("demo").innerHTML = "getting svg by tag name:" + id;
+
+
+        var svgs = svgDoc.getElementsByTagName("svg")
+        
+        svgs[0].appendChild(linkElem);
+
+        changeTotalPull(id)
+
+        document.getElementById("demo").innerHTML = "done";
+
+        document.getElementById("demo").innerHTML = "changed to " + id + " " + group;
+    })
+}
+
+function changeSVG() {
+    var img = document.getElementById("svgChoice");
+    var value = img.options[img.selectedIndex].value;
+
+    var volume = value.split("vol_")[1].split("_layer_")[0]
+    var layer = value.split("vol_")[1].split("_layer_")[1].split("_modules")[0]
+    
+    var data_string = 'data="svg/vol' + volume + '/lay' + layer + '/' + value + '.svg"'
+
+    var objEl = document.getElementById("oriPoly");
+    objEl.outerHTML = objEl.outerHTML.replace(/data="(.+?)"/, data_string);
+
+    objEl.addEventListener("load", changeStyleSheet(value));
+}
+
+function changeStyleSheetGroup(id) {
+    group = id
+    changeSVG()
+}
+
+function togglePull() {
+    var pullImg = document.getElementById("pulldistr")
+    
+    if(pullImg.style.visibility == "visible"){
+        pullImg.style.visibility = "hidden";
+    }
+    else{
+        pullImg.style.visibility = "visible";
+    }
+}
+
+function changeTotalPull(id) {
+    var pullImg = document.getElementById("pulldistr")
+
+    pullImg.src="css/img/" + id + "/pull.png"
+
+}
