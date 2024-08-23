@@ -1,3 +1,6 @@
 [submodule "actsvg"]
 	path = actsvg
 	url = https://github.com/acts-project/actsvg.git
+[submodule "extern/actsvg"]
+	path = extern/actsvg
+	url = https://github.com/acts-project/actsvg.git
