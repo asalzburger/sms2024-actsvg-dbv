@@ -1,0 +1,3 @@
+[submodule "actsvg"]
+	path = actsvg
+	url = https://github.com/acts-project/actsvg.git
