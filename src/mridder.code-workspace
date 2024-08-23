@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../afs/cern.ch/user/m/mridder"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"condition_variable": "cpp",
+			"forward_list": "cpp",
+			"*.tcc": "cpp",
+			"fstream": "cpp",
+			"mutex": "cpp",
+			"ostream": "cpp",
+			"shared_mutex": "cpp",
+			"stop_token": "cpp"
+		}
+	}
+}
