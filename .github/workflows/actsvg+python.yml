@@ -30,6 +30,8 @@ jobs:
       - name: Source setup
         run: |
           ls
+          cd extern
+          ls
           source extern/actsvg_installed/python/setup.sh
       - name: Run python scripts
         run: |
