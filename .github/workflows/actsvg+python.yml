@@ -18,11 +18,6 @@ jobs:
           ls
           cmake --build actsvg_build --target install
           ls
-  setup-python-env:
-    runs-on: ubuntu-latest
-    needs: build-actsvg
-    steps:
-      - uses: actions/checkout@v4
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
@@ -32,6 +27,7 @@ jobs:
           ls
           cd extern
           ls
+          cd ..
           source extern/actsvg_installed/python/setup.sh
       - name: Run python scripts
         run: |
