@@ -12,7 +12,7 @@ jobs:
       - name: Build actsvg
         working-directory: extern
         run: |
-          cmake -GNinja -S actsvg -B actsvg_build -DCMAKE_INSTALL_PREFIX="actsvg_installed" \
+          cmake -S actsvg -B actsvg_build -DCMAKE_INSTALL_PREFIX="actsvg_installed" \
           -DACTSVG_BUILD_TESTING=OFF -DACTSVG_BUILD_PYTHON_BINDINGS=On -DACTSVG_BUILD_EXAMPLES=OFF \
           -DCMAKE_CXX_STANDARD=17
           cmake --build actsvg --target install
