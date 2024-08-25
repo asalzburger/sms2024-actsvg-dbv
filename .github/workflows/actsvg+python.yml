@@ -15,7 +15,8 @@ jobs:
           cmake -S actsvg -B actsvg_build -DCMAKE_INSTALL_PREFIX="actsvg_installed" \
           -DACTSVG_BUILD_TESTING=OFF -DACTSVG_BUILD_PYTHON_BINDINGS=On -DACTSVG_BUILD_EXAMPLES=OFF \
           -DCMAKE_CXX_STANDARD=17
-          cmake --build . --target install
+          ls
+          cmake --build actsvg_build --target install
   setup-python-env:
     runs-on: ubuntu-latest
     needs: build-actsvg
