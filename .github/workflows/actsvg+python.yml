@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build actsvg
-        working-directory: ../extern
+        working-directory: extern
         run: |
           cmake -GNinja -S actsvg -B actsvg_build -DCMAKE_INSTALL_PREFIX="actsvg_installed" \
           -DACTSVG_BUILD_TESTING=OFF -DACTSVG_BUILD_PYTHON_BINDINGS=On -DACTSVG_BUILD_EXAMPLES=OFF \
@@ -23,9 +23,9 @@ jobs:
           python-version: "3.10"
       - name: Source setup
         run: |
-          source ../extern/actsvg_installed/python/setup.sh
+          source extern/actsvg_installed/python/setup.sh
       - name: Run python scripts
         run: |
-          python ../src/preview.py
-          python ../src/load_sensitives.py
+          python src/preview.py
+          python src/load_sensitives.py
       
