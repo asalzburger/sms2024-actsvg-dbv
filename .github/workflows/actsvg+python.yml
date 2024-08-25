@@ -17,6 +17,7 @@ jobs:
           -DCMAKE_CXX_STANDARD=17
           ls
           cmake --build actsvg_build --target install
+          ls
   setup-python-env:
     runs-on: ubuntu-latest
     needs: build-actsvg
