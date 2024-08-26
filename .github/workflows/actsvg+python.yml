@@ -18,7 +18,7 @@ jobs:
           -DACTSVG_BUILD_TESTING=OFF -DACTSVG_BUILD_PYTHON_BINDINGS=On -DACTSVG_BUILD_EXAMPLES=OFF \
           -DCMAKE_CXX_STANDARD=17
           cmake --build extern/actsvg_build --target install
-          python -m pip install --upgrade pip numpy 
+          python -m pip install --upgrade pip numpy uproot
           source extern/actsvg_installed/python/setup.sh
           sudo apt-get install binutils cmake dpkg-dev g++ gcc libssl-dev git libx11-dev \
           libxext-dev libxft-dev libxpm-dev python3 libtbb-dev libvdt-dev
