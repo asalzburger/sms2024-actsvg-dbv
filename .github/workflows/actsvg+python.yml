@@ -9,21 +9,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Source setup 1
-        run: |
-          source extern/acts/CI/setup_cvmfs_lcg.sh
-      - name: Build acts
-        working-directory: extern
-        run: |
-          cmake -B acts_build -S acts -DACTS_BUILD_EXAMPLES=OFF \
-          -DACTS_BUILD_PLUGIN_DD4HEP=OFF -DACTS_BUILD_PLUGIN_GEANT4=OFF \
-          -DACTS_BUILD_PLUGIN_JSON=OFF -DACTS_BUILD_EXAMPLES_DD4HEP=OFF \
-          -DACTS_BUILD_EXAMPLES_GEANT4=OFF -DACTS_BUILD_EXAMPLES_PYTHON_BINDINGS=ON \
-          -DACTS_BUILD_ODD=OFF -DACTS_BUILD_PLUGIN_TGEO=OFF -DACTS_BUILD_PLUGIN_ACTSVG=ON
-          cmake --build acts_build
-      - name: Source setup 2
-        run: |
-          source extern/acts_build/python/setup.sh
       - name: Build actsvg
         working-directory: extern
         run: |
@@ -31,22 +16,17 @@ jobs:
           -DACTSVG_BUILD_TESTING=OFF -DACTSVG_BUILD_PYTHON_BINDINGS=On -DACTSVG_BUILD_EXAMPLES=OFF \
           -DCMAKE_CXX_STANDARD=17
           cmake --build actsvg_build --target install
-      - name: Source setup 3
-        run: |
-          source extern/actsvg_installed/python/setup.sh
-      - name: Set up Python 3.10
+      - name: Set up Python 3.9
         uses: actions/setup-python@v3
         with:
           python-version: "3.9"
       - name: Install Python Modules
         run: |
-          python -m pip install --upgrade pip numpy
-           conda config --set channel_priority strict
-           conda create -c conda-forge --name cenv root
-           conda init
-           conda activate cenv
+          python -m pip install --upgrade pip numpy 
+      - name: Source setup
+        run: |
+          source extern/actsvg_installed/python/setup.sh
       - name: Run python scripts
         run: |
           python src/preview.py
           python src/load_sensitives.py
-      
