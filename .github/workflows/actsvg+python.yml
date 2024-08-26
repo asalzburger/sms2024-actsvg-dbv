@@ -4,12 +4,14 @@ jobs:
   build-actsvg-run-python:
     runs-on: ubuntu-24.04
     steps:
-      - name: checkout all the submodules + Setup Python
+      - name: checkout all the submodules
         uses: actions/checkout@v4
-              actions/setup-python@v3
+        with:
+          submodules: recursive
+      - name: Setup Python
+        uses: actions/setup-python@v3
         with:
           python-version: "3.12"
-          submodules: recursive
       - name: Build actsvg + Install Dependencies + Run Scripts
         run: |
           cmake -S extern/actsvg -B extern/actsvg_build -DCMAKE_INSTALL_PREFIX="extern/actsvg_installed" \
