@@ -27,3 +27,8 @@ jobs:
           source root/bin/thisroot.sh
           python src/preview.py
           python src/load_sensitives.py
+          echo "Same step:"
+          ls
+      - name: ls after run
+        run: |
+          ls
