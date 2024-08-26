@@ -39,10 +39,8 @@ jobs:
           wget https://root.cern/download/root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
           tar xf root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
           source root/bin/thisroot.sh
-          python src/preview.py
+          python src/preview.py # PROBLEM: Doesn't actually create images, does create css, html and js files
           python src/load_sensitives.py
-          cd output/css/img/vol_16_layer_4_modules
-          ls
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
         with:
