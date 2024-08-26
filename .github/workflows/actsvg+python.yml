@@ -29,6 +29,7 @@ jobs:
           python src/load_sensitives.py
           echo "Same step:"
   Deploy-to-Pages:
+    needs: build-actsvg-run-python
     runs-on: ubuntu-24.04
     steps:
       - name: upload output as artifact
