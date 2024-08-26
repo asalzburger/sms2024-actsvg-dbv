@@ -25,6 +25,7 @@ jobs:
           python -m pip install --upgrade pip numpy
            conda config --set channel_priority strict
            conda create -c conda-forge --name cenv root
+           conda init
            conda activate cenv
       - name: Source setup
         run: |
