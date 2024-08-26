@@ -5,29 +5,23 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - name: checkout all the submodules
+      - name: checkout all the submodulesz
         uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Build actsvg
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Build actSVG + Install Dependencies + Run Scripts
         working-directory: extern
         run: |
           cmake -S actsvg -B actsvg_build -DCMAKE_INSTALL_PREFIX="actsvg_installed" \
           -DACTSVG_BUILD_TESTING=OFF -DACTSVG_BUILD_PYTHON_BINDINGS=On -DACTSVG_BUILD_EXAMPLES=OFF \
           -DCMAKE_CXX_STANDARD=17
           cmake --build actsvg_build --target install
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.10"
-      - name: Install Python Modules
-        run: |
           python -m pip install --upgrade pip numpy 
-      - name: Source setup
-        run: |
           source extern/actsvg_installed/python/setup.sh
-      - name: Install ROOT + Run Scripts
-        run: |
           wget https://root.cern/download/root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
           tar xf root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
           source root/bin/thisroot.sh
