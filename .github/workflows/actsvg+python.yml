@@ -2,7 +2,7 @@ name: Build-actsvg+Python
 on: [push]
 jobs:
   build-actsvg-run-python:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: checkout all the submodules
@@ -26,6 +26,11 @@ jobs:
       - name: Source setup
         run: |
           source extern/actsvg_installed/python/setup.sh
+      - name: Install ROOT
+        run: |
+          wget https://root.cern/download/root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
+          tar xf root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
+          source root/bin/thisroot.sh
       - name: Run python scripts
         run: |
           python src/preview.py
