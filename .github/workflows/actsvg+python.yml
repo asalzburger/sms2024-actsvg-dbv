@@ -1,6 +1,6 @@
 name: Build-actsvg+Python
 on: 
-  [workflow_dispatch]
+  [push]
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
