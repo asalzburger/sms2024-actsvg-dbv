@@ -26,8 +26,10 @@ jobs:
       - name: Source setup
         run: |
           source extern/actsvg_installed/python/setup.sh
-      - name: Install ROOT + Run Scripts
+      - name: Install Dependencies + ROOT + Run Scripts
         run: |
+          sudo apt-get install binutils cmake dpkg-dev g++ gcc libssl-dev git libx11-dev \
+          libxext-dev libxft-dev libxpm-dev python3 libtbb-dev libvdt-dev
           wget https://root.cern/download/root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
           tar xf root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
           source root/bin/thisroot.sh
