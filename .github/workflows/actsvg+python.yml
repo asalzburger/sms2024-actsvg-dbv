@@ -9,6 +9,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+      - name: Build acts
+        working-directory: extern
+        run: |
+          cmake -B acts_build -S acts -DACTS_BUILD_EXAMPLES=OFF \
+          -DACTS_BUILD_PLUGIN_DD4HEP=OFF -DACTS_BUILD_PLUGIN_GEANT4=OFF \
+          -DACTS_BUILD_PLUGIN_JSON=OFF -DACTS_BUILD_EXAMPLES_DD4HEP=OFF \
+          -DACTS_BUILD_EXAMPLES_GEANT4=OFF -DACTS_BUILD_EXAMPLES_PYTHON_BINDINGS=ON \
+          -DACTS_BUILD_ODD=OFF -DACTS_BUILD_PLUGIN_TGEO=OFF -DACTS_BUILD_PLUGIN_ACTSVG=ON
+          cmake --build acts_build
       - name: Build actsvg
         working-directory: extern
         run: |
