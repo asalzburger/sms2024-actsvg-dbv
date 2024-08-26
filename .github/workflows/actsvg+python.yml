@@ -16,10 +16,10 @@ jobs:
           -DACTSVG_BUILD_TESTING=OFF -DACTSVG_BUILD_PYTHON_BINDINGS=On -DACTSVG_BUILD_EXAMPLES=OFF \
           -DCMAKE_CXX_STANDARD=17
           cmake --build actsvg_build --target install
-      - name: Set up Python 3.12
+      - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
-          python-version: "3.12"
+          python-version: "3.11"
       - name: Install Python Modules
         run: |
           python -m pip install --upgrade pip numpy 
