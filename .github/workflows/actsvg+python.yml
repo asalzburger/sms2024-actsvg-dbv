@@ -20,7 +20,7 @@ jobs:
         with:
           submodules: recursive
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: "3.12"
       - name: Build actsvg + Install Dependencies + Run Scripts
@@ -56,7 +56,7 @@ jobs:
         name: github-pages
         path: web
     - uses: actions/configure-pages@v4
-    - uses: actions/upload-pages-artifact@v1
+    - uses: actions/upload-pages-artifact@v3
       with:
         path: web
     - id: deployment
