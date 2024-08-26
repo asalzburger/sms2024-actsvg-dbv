@@ -53,13 +53,17 @@ jobs:
     steps:
     - name: ls
       run: |
+        mkdir web
+        cd web
         touch index.html
         echo "hello" >> index.html
         ls
         cat index.html
+        cd ..
+        ls
     - uses: actions/configure-pages@v4
     - uses: actions/upload-pages-artifact@v1
       with:
-        path: index.html
+        path: web
     - id: deployment
       uses: actions/deploy-pages@v4
