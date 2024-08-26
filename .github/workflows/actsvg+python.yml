@@ -4,7 +4,6 @@ jobs:
   build-actsvg-run-python:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
       - name: checkout all the submodules + Setup Python
         uses: actions/checkout@v4
               actions/setup-python@v3
