@@ -5,29 +5,20 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - name: checkout all the submodules
+      - name: checkout all the submodules + Setup Python
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
-      - name: Build actsvg
-        working-directory: extern
-        run: |
-          cmake -S actsvg -B actsvg_build -DCMAKE_INSTALL_PREFIX="actsvg_installed" \
-          -DACTSVG_BUILD_TESTING=OFF -DACTSVG_BUILD_PYTHON_BINDINGS=On -DACTSVG_BUILD_EXAMPLES=OFF \
-          -DCMAKE_CXX_STANDARD=17
-          cmake --build actsvg_build --target install
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v3
+              actions/setup-python@v3
         with:
           python-version: "3.12"
-      - name: Install Python Modules
+          submodules: recursive
+      - name: Build actsvg + Install Dependencies + Run Scripts
         run: |
+          cmake -S extern/actsvg -B extern/actsvg_build -DCMAKE_INSTALL_PREFIX="extern/actsvg_installed" \
+          -DACTSVG_BUILD_TESTING=OFF -DACTSVG_BUILD_PYTHON_BINDINGS=On -DACTSVG_BUILD_EXAMPLES=OFF \
+          -DCMAKE_CXX_STANDARD=17
+          cmake --build extern/actsvg_build --target install
           python -m pip install --upgrade pip numpy 
-      - name: Source setup
-        run: |
           source extern/actsvg_installed/python/setup.sh
-      - name: Install Dependencies + ROOT + Run Scripts
-        run: |
           sudo apt-get install binutils cmake dpkg-dev g++ gcc libssl-dev git libx11-dev \
           libxext-dev libxft-dev libxpm-dev python3 libtbb-dev libvdt-dev
           wget https://root.cern/download/root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
