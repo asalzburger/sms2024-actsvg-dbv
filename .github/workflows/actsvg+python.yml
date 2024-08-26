@@ -38,7 +38,7 @@ jobs:
           source root/bin/thisroot.sh
           python src/preview.py
           python src/load_sensitives.py
-      - uses: actions/upload-artifact@master
+      - uses: actions/upload-artifact@v4
         with:
           name: output-dir
           path: output
