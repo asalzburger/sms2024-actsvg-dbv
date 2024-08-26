@@ -51,16 +51,10 @@ jobs:
       url: ${{steps.deployment.outputs.page_url}}
       
     steps:
-    - name: ls
-      run: |
-        mkdir web
-        cd web
-        touch index.html
-        echo "hello" >> index.html
-        ls
-        cat index.html
-        cd ..
-        ls
+    - uses: actions/download-artifact@v4
+      with:
+        name: github-pages
+        path: web
     - uses: actions/configure-pages@v4
     - uses: actions/upload-pages-artifact@v1
       with:
