@@ -55,6 +55,9 @@ jobs:
       with:
         name: github-pages
         path: web
+    - name: ls
+      run: |
+        ls
     - uses: actions/configure-pages@v4
     - uses: actions/upload-pages-artifact@v1
       with:
