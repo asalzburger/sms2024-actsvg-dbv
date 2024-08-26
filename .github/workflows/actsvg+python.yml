@@ -61,6 +61,17 @@ jobs:
         name: output-dir
         path: output
     - uses: actions/configure-pages@v4
+    - name: ls
+      run: |
+        ls
+        cd output
+        ls
+        cd css
+        ls
+        cd img 
+        ls
+        cd vol_16_layer_4_modules
+        ls
     - uses: actions/upload-pages-artifact@v3
       with:
         path: output
