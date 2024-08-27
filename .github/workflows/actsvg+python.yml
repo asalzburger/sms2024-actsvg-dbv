@@ -1,0 +1,50 @@
+name: Build-actsvg+Python
+on: 
+  [push, workflow_dispatch]
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+jobs:
+  build-actsvg-run-python:
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+    runs-on: ubuntu-24.04
+    steps:
+      - name: checkout all the submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Build actsvg + Install Dependencies + Run Scripts
+        run: |
+          cmake -S extern/actsvg -B extern/actsvg_build -DCMAKE_INSTALL_PREFIX="extern/actsvg_installed" \
+          -DACTSVG_BUILD_TESTING=OFF -DACTSVG_BUILD_PYTHON_BINDINGS=On -DACTSVG_BUILD_EXAMPLES=OFF \
+          -DCMAKE_CXX_STANDARD=17
+          cmake --build extern/actsvg_build --target install
+          python -m pip install --upgrade pip numpy uproot
+          source extern/actsvg_installed/python/setup.sh
+          sudo apt-get install binutils cmake dpkg-dev g++ gcc libssl-dev git libx11-dev \
+          libxext-dev libxft-dev libxpm-dev python3 libtbb-dev libvdt-dev libgif7
+          wget https://root.cern/download/root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
+          tar xf root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
+          source root/bin/thisroot.sh
+          python src/preview.py
+          python src/load_sensitives.py
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: output
+      - id: deployment
+        uses: actions/deploy-pages@v4
+    
