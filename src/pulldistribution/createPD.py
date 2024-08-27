@@ -42,6 +42,7 @@ def createLayerDistribution(vl, mDict, path):
         c2.SetFillColor( 18 )
         c2.SetGrid()
         c2.SaveAs(os.path.join(path, "vol_" + str(vl[0]) + "_layer_" + str(vl[1]) + "_modules", "pull.png"))
+        print(">> Created ", os.path.join(path, "vol_" + str(vl[0]) + "_layer_" + str(vl[1]) + "_modules", "pull.png"))
 
 # Create pull distributions
 def createPullDistributions(rms, path):
