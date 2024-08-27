@@ -40,6 +40,15 @@ jobs:
           tar xf root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
           source root/bin/thisroot.sh
           python src/preview.py # PROBLEM: Doesn't actually create images, does create css, html and js files
+          ls
+          cd output
+          ls
+          cd css
+          ls
+          cd img
+          ls
+          cd vol_16_layer_4_modules
+          ls
           python src/load_sensitives.py
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
