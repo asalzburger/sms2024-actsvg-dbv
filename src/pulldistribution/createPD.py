@@ -19,7 +19,7 @@ def createModuleDistribution(vl, mDict, path):
 
         c1.SetFillColor( 18 )
         c1.SetGrid()
-        c1.Print(os.path.join(path, "vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules/_sen"  + str(m) + ".png"))
+        c1.SaveAs(os.path.join(path, "vol_" + str(vl[0]) + "_layer_" + str(vl[1])  + "_modules/_sen"  + str(m) + ".png"))
 
 # Create pull distribution for a whole layer
 def createLayerDistribution(vl, mDict, path):
@@ -41,7 +41,7 @@ def createLayerDistribution(vl, mDict, path):
 
         c2.SetFillColor( 18 )
         c2.SetGrid()
-        c2.Print(os.path.join(path, "vol_" + str(vl[0]) + "_layer_" + str(vl[1]) + "_modules", "pull.png"))
+        c2.SaveAs(os.path.join(path, "vol_" + str(vl[0]) + "_layer_" + str(vl[1]) + "_modules", "pull.png"))
 
 # Create pull distributions
 def createPullDistributions(rms, path):
