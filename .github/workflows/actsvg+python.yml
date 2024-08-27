@@ -35,14 +35,12 @@ jobs:
           python -m pip install --upgrade pip numpy uproot
           source extern/actsvg_installed/python/setup.sh
           sudo apt-get install binutils cmake dpkg-dev g++ gcc libssl-dev git libx11-dev \
-          libxext-dev libxft-dev libxpm-dev python3 libtbb-dev libvdt-dev
+          libxext-dev libxft-dev libxpm-dev python3 libtbb-dev libvdt-dev libgif7
           wget https://root.cern/download/root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
           tar xf root_v6.32.04.Linux-ubuntu24.04-x86_64-gcc13.2.tar.gz
           source root/bin/thisroot.sh
-          python src/preview.py # PROBLEM: Doesn't actually create images, does create css, html and js files
+          python src/preview.py
           python src/load_sensitives.py
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
         with:
