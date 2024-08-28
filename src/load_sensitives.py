@@ -63,9 +63,12 @@ with open(os.path.join(path, 'data', 'odd-sensitives.json')) as json_file:
             svg_file = actsvg.io.file()
             svg_file.add_objects(svg_surfaces)
             it = 0
+            onerror_string = "this.onerror=null;this.href.baseVal='../../../../src/NoPull.png';"
             for s in selected_surfaces:
-                info_box = actsvg.draw.connected_info_box("vol_" + str(i) + "_layer_" + str(j) + "_modules/_sen" + str(s["sensitive"]), [50.0,50.0], "", fill, font, [""], fill, font, stroke, svg_surfaces[it], ["mouseover", "mouseout"])
-                svg_file.add_object(info_box)
+                id_string = "vol_" + str(i) + "_layer_" + str(j) + "_modules/_sen" + str(s["sensitive"])
+                href_string = "../../../css/img/" + id_string + ".png"
+                image_box = actsvg.draw.image_box(id_string, href_string, svg_surfaces[it], ["mouseover", "mouseout"], onerror_string)
+                svg_file.add_object(image_box)
                 it+=1
 
                 
@@ -84,8 +87,11 @@ with open(os.path.join(path, 'data', 'odd-sensitives.json')) as json_file:
                 svg_single_file = actsvg.io.file()
                 svg_single_file.add_objects(svg_single_surface)
 
-                info_box = actsvg.draw.connected_info_box("module_vol" + str(i) + "_lay" + str(j) + "_sen" + str(k), [50.0,50.0], "", fill, font, [""], fill, font, stroke, svg_single_surface[0], ["mouseover", "mouseout"])
-                svg_single_file.add_object(info_box)
+                id_string = "module_vol" + str(i) + "_lay" + str(j) + "_sen" + str(k)
+                href_string = "../../../css/img/" + id_string + ".png"
+
+                image_box = actsvg.draw.image_box(id_string, href_string, svg_single_surface[0], ["mouseover", "mouseout"], onerror_string)
+                svg_single_file.add_object(image_box)
 
                 
                 svg_single_file.write(os.path.join(svg_path, "vol" + str(volume), "lay" + str(layer), "volume"+str(volume)+"_layer"+str(layer)+"sensitive"+str(sensitive)+".svg"))
