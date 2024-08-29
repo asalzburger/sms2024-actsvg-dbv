@@ -67,7 +67,7 @@ with open(os.path.join(path, 'data', 'odd-sensitives.json')) as json_file:
             for s in selected_surfaces:
                 id_string = "vol_" + str(i) + "_layer_" + str(j) + "_modules/_sen" + str(s["sensitive"])
                 href_string = "../../../css/img/" + id_string + ".png"
-                image_box = actsvg.draw.image_box(id_string, href_string, "300", "300", "180", "-26", svg_surfaces[it], ["mouseover", "mouseout"], onerror_string)
+                image_box = actsvg.draw.image_box(id_string, href_string, 300, 300, 180, -26, svg_surfaces[it], ["mouseover", "mouseout"], onerror_string)
                 svg_file.add_object(image_box)
                 it+=1
 
@@ -90,7 +90,7 @@ with open(os.path.join(path, 'data', 'odd-sensitives.json')) as json_file:
                 id_string = "module_vol" + str(i) + "_lay" + str(j) + "_sen" + str(k)
                 href_string = "../../../css/img/" + id_string + ".png"
 
-                image_box = actsvg.draw.image_box(id_string, href_string, "300", "300", "180", "-26", svg_single_surface[0], ["mouseover", "mouseout"], onerror_string)
+                image_box = actsvg.draw.image_box(id_string, href_string, 300, 300, 180, -26, svg_single_surface[0], ["mouseover", "mouseout"], onerror_string)
                 svg_single_file.add_object(image_box)
 
                 
